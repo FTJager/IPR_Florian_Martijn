@@ -15,6 +15,7 @@ namespace GUI.ViewModels
             this.mainViewModel = mainViewModel;
         }
 
-        public string Film { get; set; } = "TENET";
+        public List<string> films = new List<string>();
+
     }
 }
