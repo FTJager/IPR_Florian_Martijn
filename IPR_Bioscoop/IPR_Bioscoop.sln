@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPR_Bioscoop", "IPR_Bioscoo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{389635C1-40EA-42B6-BC2E-8B5071FCF064}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{96FC93C9-E302-4D59-99AD-22248778CADE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GUI", "GUI\GUI.csproj", "{96FC93C9-E302-4D59-99AD-22248778CADE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Film", "Film\Film.csproj", "{50DD9D45-0289-4357-90A9-69996D62D169}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{96FC93C9-E302-4D59-99AD-22248778CADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96FC93C9-E302-4D59-99AD-22248778CADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96FC93C9-E302-4D59-99AD-22248778CADE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50DD9D45-0289-4357-90A9-69996D62D169}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50DD9D45-0289-4357-90A9-69996D62D169}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50DD9D45-0289-4357-90A9-69996D62D169}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50DD9D45-0289-4357-90A9-69996D62D169}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
