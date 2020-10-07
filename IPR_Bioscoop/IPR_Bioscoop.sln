@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPR_Bioscoop", "IPR_Bioscoop\IPR_Bioscoop.csproj", "{5B153B3C-37F0-4A42-A4F7-A0CA8FCDD044}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{389635C1-40EA-42B6-BC2E-8B5071FCF064}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{389635C1-40EA-42B6-BC2E-8B5071FCF064}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{96FC93C9-E302-4D59-99AD-22248778CADE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{389635C1-40EA-42B6-BC2E-8B5071FCF064}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{389635C1-40EA-42B6-BC2E-8B5071FCF064}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{389635C1-40EA-42B6-BC2E-8B5071FCF064}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96FC93C9-E302-4D59-99AD-22248778CADE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96FC93C9-E302-4D59-99AD-22248778CADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96FC93C9-E302-4D59-99AD-22248778CADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96FC93C9-E302-4D59-99AD-22248778CADE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
