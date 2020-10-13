@@ -17,7 +17,7 @@ namespace Server
             films = MakeFilmList();
             Console.WriteLine("Movies loaded");
 
-            listener = new TcpListener(IPAddress.Any, 84573);
+            listener = new TcpListener(IPAddress.Any, 14653);
             listener.Start();
             listener.BeginAcceptTcpClient(OnConnect, null);     //Open the connection, server can now receive clients
 

@@ -13,6 +13,7 @@ namespace Client
         private static NetworkStream stream;
         private static byte[] buffer = new byte[1024];
         private static string totalBuffer;
+        private static int messageLength;
         private static string username;
 
         static void Main(string[] args)
@@ -22,7 +23,7 @@ namespace Client
             username = Console.ReadLine();
 
             client = new TcpClient();
-            client.BeginConnect("localhost", 84573, new AsyncCallback(OnConnect), null);
+            client.BeginConnect("localhost", 14653, new AsyncCallback(OnConnect), null);
         }
 
         private static void OnConnect(IAsyncResult ar)
@@ -31,50 +32,60 @@ namespace Client
             Console.WriteLine("Verbonden");
             stream = client.GetStream();
             stream.BeginRead(buffer, 0, buffer.Length, new AsyncCallback(OnRead), null);
-            write($"Login\r\n {username}");
+            write(JsonCommands.Commands.Login(username));
         }
 
         private static void OnRead(IAsyncResult ar)
         {
-            int receivedBytes = stream.EndRead(ar);
-            string receivedText = System.Text.Encoding.ASCII.GetString(buffer, 0, receivedBytes);
-            totalBuffer += receivedText;
-
-            while (totalBuffer.Contains("\r\n\r\n"))
+            string messageData = "";
+            Boolean messageReady = false;
+            try
             {
-                string packet = totalBuffer.Substring(0, totalBuffer.IndexOf("\r\n\r\n"));
-                totalBuffer = totalBuffer.Substring(totalBuffer.IndexOf("\r\n\r\n") + 4);
-                string[] packetData = Regex.Split(packet, "\r\n");
-                handleData(packetData);
-            }
-            stream.BeginRead(buffer, 0, buffer.Length, new AsyncCallback(OnRead), null);
-        }
+                int receivedBytes = stream.EndRead(ar);
+                if (receivedBytes == 4)
+                {
+                    //Do something with length byte
+                    messageLength = BitConverter.ToInt32(buffer, 0);
+                    Console.WriteLine("message length by length byte: {0}", messageLength);
+                }
+                else
+                {
+                    string receivedText = Encoding.ASCII.GetString(buffer, 0, receivedBytes);
+                    totalBuffer += receivedText;
+                    Console.WriteLine("--New message. Length: {0} bytes. Text: {1}", receivedBytes, receivedText);
 
-        private static void write(string data)
-        {
-            var dataAsBytes = System.Text.Encoding.ASCII.GetBytes(data + "\r\n\r\n");
-            stream.Write(dataAsBytes, 0, dataAsBytes.Length);
-            stream.Flush();
-        }
+                    messageData = receivedText;
 
-        private static void handleData(string[] packetData)
-        {
-            Console.WriteLine($"Packet ontvangen: {packetData[0]}");
-
-            switch (packetData[0])
-            {
-                case "login":
-                    if (packetData[1] == "ok")
+                    if (totalBuffer.Length == messageLength)
                     {
-                        Console.WriteLine("Logged in!");
+                        messageData = totalBuffer;
+                        messageReady = true;
+                        totalBuffer = totalBuffer.Remove(0);
+                        Console.WriteLine("Message complete: {0}", messageData);
+                        messageLength = 0;
                     }
-                    else
-                        Console.WriteLine(packetData[1]);
-                    break;
-                case "chat":
-                    Console.WriteLine($"Chat ontvangen: '{packetData[1]}'");
-                    break;
+                }
             }
+            catch(IOException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            if (messageReady) handleData(messageData);
+            stream.BeginRead(buffer, 0, buffer.Length, new AsyncCallback(OnRead), null);
+
+        }
+
+        private static void write(string packet)
+        {
+            var writer = new BinaryWriter(stream);
+            writer.Write(BitConverter.GetBytes(Encoding.ASCII.GetByteCount(packet))); //Make length packet
+            writer.Write(Encoding.ASCII.GetBytes(packet));
+        }
+
+        private static void handleData(string packetData)
+        {
+            
 
         }
     }

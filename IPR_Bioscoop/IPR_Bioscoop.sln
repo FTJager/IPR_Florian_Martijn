@@ -9,14 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GUI", "GUI\GUI.csproj", "{96FC93C9-E302-4D59-99AD-22248778CADE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Film", "Film\Film.csproj", "{50DD9D45-0289-4357-90A9-69996D62D169}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{B078F15B-808D-4247-BB10-FE0E72275301}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csproj", "{B078F15B-808D-4247-BB10-FE0E72275301}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "JsonCommands", "JsonCommands\JsonCommands.shproj", "{AE165AF3-8E1A-469D-83F0-098EF39EE5F7}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		JsonCommands\JsonCommands.projitems*{389635c1-40ea-42b6-bc2e-8b5071fcf064}*SharedItemsImports = 5
 		JsonCommands\JsonCommands.projitems*{ae165af3-8e1a-469d-83f0-098ef39ee5f7}*SharedItemsImports = 13
 		JsonCommands\JsonCommands.projitems*{b078f15b-808d-4247-bb10-fe0e72275301}*SharedItemsImports = 5
 	EndGlobalSection
@@ -37,10 +36,6 @@ Global
 		{96FC93C9-E302-4D59-99AD-22248778CADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96FC93C9-E302-4D59-99AD-22248778CADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96FC93C9-E302-4D59-99AD-22248778CADE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{50DD9D45-0289-4357-90A9-69996D62D169}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{50DD9D45-0289-4357-90A9-69996D62D169}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{50DD9D45-0289-4357-90A9-69996D62D169}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{50DD9D45-0289-4357-90A9-69996D62D169}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B078F15B-808D-4247-BB10-FE0E72275301}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B078F15B-808D-4247-BB10-FE0E72275301}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B078F15B-808D-4247-BB10-FE0E72275301}.Release|Any CPU.ActiveCfg = Release|Any CPU
