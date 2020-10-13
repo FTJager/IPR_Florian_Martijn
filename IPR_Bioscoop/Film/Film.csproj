@@ -10,10 +10,4 @@
     <PackageReference Include="PropertyChanged.Fody" Version="3.2.9" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Server\Server.csproj" />
-  </ItemGroup>
-
-  <Import Project="..\JsonCommands\JsonCommands.projitems" Label="Shared" />
-
 </Project>
