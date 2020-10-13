@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Client
 {
@@ -11,6 +12,7 @@ namespace Client
         private static TcpClient client;
         private static NetworkStream stream;
         private static byte[] buffer = new byte[1024];
+        private static string totalBuffer;
         private static string username;
 
         static void Main(string[] args)
@@ -34,18 +36,18 @@ namespace Client
 
         private static void OnRead(IAsyncResult ar)
         {
-            StringBuilder message = new StringBuilder();
-            int numberOfBytesRead = 0;
-            byte[] receiveBuffer = new byte[1024];
+            int receivedBytes = stream.EndRead(ar);
+            string receivedText = System.Text.Encoding.ASCII.GetString(buffer, 0, receivedBytes);
+            totalBuffer += receivedText;
 
-            do
+            while (totalBuffer.Contains("\r\n\r\n"))
             {
-                numberOfBytesRead = stream.Read(receiveBuffer, 0, receiveBuffer.Length);
-                message.AppendFormat("{0}", Encoding.UTF8.GetString(receiveBuffer, 0, numberOfBytesRead));
-            } while (stream.DataAvailable);
-
-            string response = message.ToString();
-            Console.WriteLine(response);
+                string packet = totalBuffer.Substring(0, totalBuffer.IndexOf("\r\n\r\n"));
+                totalBuffer = totalBuffer.Substring(totalBuffer.IndexOf("\r\n\r\n") + 4);
+                string[] packetData = Regex.Split(packet, "\r\n");
+                handleData(packetData);
+            }
+            stream.BeginRead(buffer, 0, buffer.Length, new AsyncCallback(OnRead), null);
         }
 
         private static void write(string data)
@@ -53,6 +55,28 @@ namespace Client
             var dataAsBytes = System.Text.Encoding.ASCII.GetBytes(data + "\r\n\r\n");
             stream.Write(dataAsBytes, 0, dataAsBytes.Length);
             stream.Flush();
+        }
+
+        private static void handleData(string[] packetData)
+        {
+            Console.WriteLine($"Packet ontvangen: {packetData[0]}");
+
+            switch (packetData[0])
+            {
+                case "login":
+                    if (packetData[1] == "ok")
+                    {
+                        Console.WriteLine("Logged in!");
+                        loggedIn = true;
+                    }
+                    else
+                        Console.WriteLine(packetData[1]);
+                    break;
+                case "chat":
+                    Console.WriteLine($"Chat ontvangen: '{packetData[1]}'");
+                    break;
+            }
+
         }
     }
 }
