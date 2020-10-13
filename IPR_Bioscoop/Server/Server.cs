@@ -19,7 +19,7 @@ namespace Server
 
             listener = new TcpListener(IPAddress.Any, 14653);
             listener.Start();
-            listener.BeginAcceptTcpClient(OnConnect, null);     //Open the connection, server can now receive clients
+            listener.BeginAcceptTcpClient(new AsyncCallback(OnConnect), null);     //Open the connection, server can now receive clients
 
             Console.ReadLine();     //Can be used to implement server-side commands if needed
         }

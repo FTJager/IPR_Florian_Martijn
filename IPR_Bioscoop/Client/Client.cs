@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Net.Sockets;
-using System.Text; 
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Client
 {
-    class Program
+    class Client
     {
 
         private static TcpClient client;
@@ -24,6 +24,8 @@ namespace Client
 
             client = new TcpClient();
             client.BeginConnect("localhost", 14653, new AsyncCallback(OnConnect), null);
+
+            Console.ReadLine();
         }
 
         private static void OnConnect(IAsyncResult ar)
