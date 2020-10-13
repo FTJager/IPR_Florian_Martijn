@@ -12,13 +12,21 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            
             <DatePicker Name="DatePicker"/>
-            <TextBox x:Name="searchText"
-                     Text="Search Title"
-                     HorizontalAlignment="Center"
-                     />
-            <Button x:Name="searchButton" Content="Search" />
+            
+            <TextBox Text="Search for Title"/>
+            
+            <Button Content="Search" 
+                    Command="{Binding searchTitle}"
+                    />
+
+            <TextBox Text="{Binding filmTitle}"/>
+
         </StackPanel>
+        
+        <TextBlock Text="{Binding filmTitle}"/>
+        
     </Grid>
 </Window>
