@@ -67,7 +67,6 @@ namespace Client
                     if (packetData[1] == "ok")
                     {
                         Console.WriteLine("Logged in!");
-                        loggedIn = true;
                     }
                     else
                         Console.WriteLine(packetData[1]);

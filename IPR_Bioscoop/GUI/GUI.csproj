@@ -6,8 +6,4 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="PropertyChanged.Fody" Version="3.2.9" />
-  </ItemGroup>
-
 </Project>
