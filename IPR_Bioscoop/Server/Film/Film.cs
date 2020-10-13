@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Server.Film
+namespace Server
 {
-    class Film
+    public class Film
     {
         public string Title { get; set; }
         public DateTime Date { get; set; }
@@ -13,13 +13,13 @@ namespace Server.Film
         public int review { get; set; }
         public int TicketsLeft { get; set; }
 
-        public Film(string Title, DateTime date, int Length, string Description, int review, int Tickets)
+        public Film(string Title, int Length, string Description, int Tickets)
         {
             this.Title = Title;
-            this.Date = date;
+            //this.Date = date;
             this.Length = Length;
             this.Description = Description;
-            this.review = review;
+            //this.review = review;
             this.TicketsLeft = Tickets;
         }
 

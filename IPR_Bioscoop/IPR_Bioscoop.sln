@@ -13,7 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Film", "Film\Film.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{B078F15B-808D-4247-BB10-FE0E72275301}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "JsonCommands", "JsonCommands\JsonCommands.shproj", "{AE165AF3-8E1A-469D-83F0-098EF39EE5F7}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		JsonCommands\JsonCommands.projitems*{ae165af3-8e1a-469d-83f0-098ef39ee5f7}*SharedItemsImports = 13
+		JsonCommands\JsonCommands.projitems*{b078f15b-808d-4247-bb10-fe0e72275301}*SharedItemsImports = 5
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

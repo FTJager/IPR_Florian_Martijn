@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.Json;
 
 namespace Server
 {
@@ -13,19 +14,37 @@ namespace Server
         private Byte[] buffer = new byte[1024];
         private string totalBuffer = "";
         private int messageLength;
+        private List<Film> films;
 
         public string username { get; set; }
 
-        public ClientHandling(TcpClient client)
+        public ClientHandling(TcpClient client, List<Film> films)
         {
             this.client = client;
             stream = client.GetStream();
+            this.films = films;
+
             stream.BeginRead(buffer, 0, buffer.Length, OnRead, null);
         }
 
         private void DataHandling(string packetData)
         {
+            string id = "";
+            JsonElement jsonCommand = JsonDocument.Parse(packetData).RootElement;   //Converts packetData back into a JSON string
+            id = jsonCommand.GetProperty("id").GetString().Substring(0, jsonCommand.GetProperty("id").GetString().IndexOf("/"));
 
+            switch (id)
+            {
+                case "login":
+                    LoginCommandHandling(jsonCommand);
+                    break;
+                case "movies":
+                    MoviesCommandHandling(jsonCommand);
+                    break;
+                default:
+                    Console.WriteLine("Bad command");
+                    break;
+            }
         }
 
         private void OnRead(IAsyncResult ar)
@@ -76,6 +95,27 @@ namespace Server
             var writer = new BinaryWriter(stream);
             writer.Write(BitConverter.GetBytes(Encoding.ASCII.GetByteCount(packet)));       //Make length packet
             writer.Write(Encoding.ASCII.GetBytes(packet));
+        }
+
+        internal void LoginCommandHandling(JsonElement command)
+        {
+            username = command.GetProperty("data").GetProperty("username").GetString();
+        }
+
+        internal void MoviesCommandHandling(JsonElement command)
+        {
+            string id = command.GetProperty("id").GetString().Substring(command.GetProperty("id").GetString().IndexOf("/") + 1);    //Only gets the second part of the id
+
+            switch (id)
+            {
+                case "get":
+                    Console.WriteLine("movies/get command received");
+                    Write(JsonCommands.Commands.GetMoviesResponse(films));
+                    break;
+                default:
+                    Console.WriteLine("invalid movie command");
+                    break;
+            }
         }
     }
 }
