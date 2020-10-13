@@ -97,6 +97,8 @@ namespace Server
             writer.Write(Encoding.ASCII.GetBytes(packet));
         }
 
+        //COMMAND HANDLING
+
         internal void LoginCommandHandling(JsonElement command)
         {
             username = command.GetProperty("data").GetProperty("username").GetString();
