@@ -23,7 +23,11 @@ namespace GUI
     {
         public MainWindow()
         {
-            DataContext = new MainViewModel();
+            MainViewModel viewModel = new MainViewModel();
+
+           
+
+            DataContext = viewModel;
             InitializeComponent();            
         }
     }

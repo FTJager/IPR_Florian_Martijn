@@ -4,12 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace GUI.ViewModel
 {
     class MainViewModel : ViewModelBase
-    {
+    { 
+        public string username { get; set; }
 
         private string _filmTitle;
         public string filmTitle
@@ -20,12 +22,14 @@ namespace GUI.ViewModel
 
         public ICommand searchTitle { get; set; }
 
-        public MainViewModel ()
+        public MainViewModel()
         {
             _filmTitle = "filmTitle";
+            
             searchTitle = new RelayCommand(() =>
            {
-               filmTitle = "werkt het?";
+               
+               filmTitle = username;
            });
         }
 
