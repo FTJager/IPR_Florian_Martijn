@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net.Sockets;
+using System.Text;
 
 namespace Client
 {
@@ -9,6 +10,7 @@ namespace Client
 
         private static TcpClient client;
         private static NetworkStream stream;
+        private static byte[] buffer = new byte[1024];
         private static string username;
 
         static void Main(string[] args)
@@ -25,6 +27,32 @@ namespace Client
         {
             client.EndConnect(ar);
             Console.WriteLine("Verbonden");
+            stream = client.GetStream();
+            stream.BeginRead(buffer, 0, buffer.Length, new AsyncCallback(OnRead), null);
+            write($"Login\r\n {username}");
+        }
+
+        private static void OnRead(IAsyncResult ar)
+        {
+            StringBuilder message = new StringBuilder();
+            int numberOfBytesRead = 0;
+            byte[] receiveBuffer = new byte[1024];
+
+            do
+            {
+                numberOfBytesRead = stream.Read(receiveBuffer, 0, receiveBuffer.Length);
+                message.AppendFormat("{0}", Encoding.UTF8.GetString(receiveBuffer, 0, numberOfBytesRead));
+            } while (stream.DataAvailable);
+
+            string response = message.ToString();
+            Console.WriteLine(response);
+        }
+
+        private static void write(string data)
+        {
+            var dataAsBytes = System.Text.Encoding.ASCII.GetBytes(data + "\r\n\r\n");
+            stream.Write(dataAsBytes, 0, dataAsBytes.Length);
+            stream.Flush();
         }
     }
 }
