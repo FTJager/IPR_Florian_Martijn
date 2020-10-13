@@ -18,7 +18,7 @@ namespace JsonCommands
 
 			var login = new
 			{
-				id = "login",
+				id = "login/login",
 				data = data
 			};
 			var jsonLogin = JsonSerializer.Serialize(login);
