@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Film
+namespace Server.Film
 {
-    public class Film
+    class Film
     {
         public string Title { get; set; }
         public DateTime Date { get; set; }
