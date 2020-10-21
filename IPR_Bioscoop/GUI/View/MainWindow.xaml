@@ -14,7 +14,8 @@
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
 
-            <DatePicker Name="DatePicker"/>
+            <DatePicker x:Name="DatePicker"
+                        />
 
             <TextBox x:Name="titleSearchBox" 
                      Text="Search for Title" 
@@ -27,7 +28,8 @@
                     Command="{Binding searchTitle}"
                     />
 
-            <Button Content="GetFilms"
+            <Button x:Name="getFilmsButton"
+                    Content="GetFilms"
                     />
 
             <TextBox x:Name="usernameBox" Text="Username" TextWrapping="Wrap" Width="100"/>

@@ -15,6 +15,8 @@ namespace GUI.ViewModel
         
         public string username { get; set; }
 
+        public DateTime date { get; set; }
+
         private string _filmTitle;
         public string filmTitle
         {
@@ -27,8 +29,18 @@ namespace GUI.ViewModel
         public MainViewModel()
         {
             _filmTitle = "filmTitle";
-            
-            
+            username = "kip";
+            date = new DateTime();
+        }
+
+        public void updateTitle (string FilmTitle)
+        {
+            filmTitle = FilmTitle;
+        }
+
+        public void updateUsername (string Username)
+        {
+            username = Username;
         }
 
     }

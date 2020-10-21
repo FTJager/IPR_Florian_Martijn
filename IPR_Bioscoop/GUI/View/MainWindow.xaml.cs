@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,8 +27,43 @@ namespace GUI
         public MainWindow()
         {
             viewModel = new MainViewModel();
+
             DataContext = viewModel;
-            InitializeComponent();            
+            InitializeComponent();
+
+            SearchButton.Click += SearchButton_Click;
+            LoginButton.Click += LoginButton_Click;
+            getFilmsButton.Click += GetFilmsButton_Click;
+        }
+
+        private async void GetFilmsButton_Click(object sender, RoutedEventArgs e)
+        {
+            DatePicker.IsEnabled = false;
+            getFilmsButton.IsEnabled = false;
+            DateTime date = (DateTime)DatePicker.SelectedDate;
+
+            bool isValid = await getFilmsAsync(date);
+
+            if (isValid)
+            {
+                date = DateTime.Today;
+            }
+            else
+            {
+                DatePicker.IsEnabled = true;
+                getFilmsButton.IsEnabled = true;
+            }
+        }
+
+        private async Task<bool> getFilmsAsync(DateTime date)
+        {
+            return await Task.Run (() => getDate(date));
+        }
+
+        private bool getDate (DateTime date)
+        {
+            viewModel.date = date;
+            return true;
         }
 
         private async void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -56,7 +92,8 @@ namespace GUI
 
         private bool Search(string Title)
         {
-            viewModel.filmTitle = Title;
+            Thread.Sleep(100);
+            viewModel.updateTitle(Title);
             return true;
         }
 
@@ -86,7 +123,8 @@ namespace GUI
 
         private bool Login(string username)
         {
-            viewModel.username = username;
+            Thread.Sleep(100);
+            viewModel.updateUsername(username);
             return true; ;
         }
     }
