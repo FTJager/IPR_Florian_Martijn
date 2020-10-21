@@ -46,7 +46,8 @@ namespace GUI
 
             if (isValid)
             {
-                date = DateTime.Today;
+                (new MainWindow()).Show();
+                this.Close();
             }
             else
             {
@@ -87,10 +88,10 @@ namespace GUI
 
         private async Task<bool> SearchAsync(string title)
         {
-            return await Task.Run(() => Search(Title));
+            return await Task.Run(() => SearchTitle(Title));
         }
 
-        private bool Search(string Title)
+        private bool SearchTitle(string Title)
         {
             Thread.Sleep(100);
             viewModel.updateTitle(Title);
