@@ -17,6 +17,10 @@
             <DatePicker x:Name="DatePicker"
                         />
 
+            <Button x:Name="getFilmsButton"
+                    Content="GetFilms"
+                    />
+
             <TextBox x:Name="titleSearchBox" 
                      Text="Search for Title" 
                      TextWrapping="Wrap"  
@@ -26,10 +30,6 @@
             <Button x:Name="SearchButton"
                     Content="Search" 
                     Command="{Binding searchTitle}"
-                    />
-
-            <Button x:Name="getFilmsButton"
-                    Content="GetFilms"
                     />
 
             <TextBox x:Name="usernameBox" Text="Username" TextWrapping="Wrap" Width="100"/>
