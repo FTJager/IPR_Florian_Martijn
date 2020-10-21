@@ -7,10 +7,12 @@ using System.Text;
 using System.Windows.Controls;
 using System.Windows.Input;
 
+
 namespace GUI.ViewModel
 {
     class MainViewModel : ViewModelBase
     { 
+        
         public string username { get; set; }
 
         private string _filmTitle;
@@ -26,11 +28,7 @@ namespace GUI.ViewModel
         {
             _filmTitle = "filmTitle";
             
-            searchTitle = new RelayCommand(() =>
-           {
-               
-               filmTitle = username;
-           });
+            
         }
 
     }

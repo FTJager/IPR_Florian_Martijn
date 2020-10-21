@@ -16,16 +16,27 @@
 
             <DatePicker Name="DatePicker"/>
 
-            <TextBox Name="titleSearchBox" Text="Search for Title" />
+            <TextBox x:Name="titleSearchBox" 
+                     Text="Search for Title" 
+                     TextWrapping="Wrap"  
+                     Width="200"
+                     />
 
-            <Button Content="Search" 
+            <Button x:Name="SearchButton"
+                    Content="Search" 
                     Command="{Binding searchTitle}"
                     />
 
             <Button Content="GetFilms"
                     />
 
-            <TextBox Name="usernameBox" Text="Username"/>
+            <TextBox x:Name="usernameBox" Text="Username" TextWrapping="Wrap" Width="100"/>
+
+            <Button x:Name="LoginButton" 
+                    Content="Login"
+                    Width="50"
+                    
+                    />
 
         </StackPanel>
 

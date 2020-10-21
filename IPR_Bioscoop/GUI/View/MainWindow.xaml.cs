@@ -21,14 +21,73 @@ namespace GUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainViewModel viewModel;
+
         public MainWindow()
         {
-            MainViewModel viewModel = new MainViewModel();
-
-           
-
+            viewModel = new MainViewModel();
             DataContext = viewModel;
             InitializeComponent();            
+        }
+
+        private async void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            titleSearchBox.IsEnabled = false;
+            SearchButton.IsEnabled = false;
+            string Title = titleSearchBox.Text;
+
+            bool isValid = await SearchAsync(Title);
+
+            if (isValid)
+            {
+                Title = "working";
+            }
+            else
+            {
+                titleSearchBox.IsEnabled = true;
+                SearchButton.IsEnabled = true;
+            }
+        }
+
+        private async Task<bool> SearchAsync(string title)
+        {
+            return await Task.Run(() => Search(Title));
+        }
+
+        private bool Search(string Title)
+        {
+            viewModel.filmTitle = Title;
+            return true;
+        }
+
+        private async void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            usernameBox.IsEnabled = false;
+            LoginButton.IsEnabled = false;
+            string username = usernameBox.Text;
+
+            bool isValid = await LoginAsync(username);
+
+            if (isValid)
+            {
+                username = "working";
+            }
+            else
+            {
+                usernameBox.IsEnabled = true;
+                LoginButton.IsEnabled = true;
+            }
+        }
+
+        private async Task<bool> LoginAsync(string username)
+        {
+            return await Task.Run(() => Login(username));
+        }
+
+        private bool Login(string username)
+        {
+            viewModel.username = username;
+            return true; ;
         }
     }
 }
