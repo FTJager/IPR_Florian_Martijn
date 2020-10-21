@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Server
 {
-    public class Film
+    [Serializable]
+    public class Film 
     {
         public string Title { get; set; }
         public DateTime Date { get; set; }
