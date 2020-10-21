@@ -11,11 +11,22 @@ using System.Windows.Input;
 namespace GUI.ViewModel
 {
     class MainViewModel : ViewModelBase
-    { 
-        
-        public string username { get; set; }
+    {
 
-        public DateTime date { get; set; }
+        private string _username;
+        public string username
+        {
+            get => _username;
+            set => SetProperty(ref _username, value);
+        }
+
+        private DateTime _date;
+        public DateTime date
+        {
+            get => _date;
+            set => SetProperty(ref _date, value);
+        }
+
 
         private string _filmTitle;
         public string filmTitle
@@ -25,23 +36,29 @@ namespace GUI.ViewModel
         }
 
         public ICommand searchTitle { get; set; }
+        public ICommand getUsername { get; set; }
+        public ICommand getAllFilms { get; set; }
 
         public MainViewModel()
         {
-            _filmTitle = "filmTitle";
-            username = "kip";
-            date = new DateTime();
-        }
+            _filmTitle = "Search for Title";
+            _username = "username";
+            _date = DateTime.Today;
 
-        public void updateTitle (string FilmTitle)
-        {
-            filmTitle = FilmTitle;
-        }
+            searchTitle = new RelayCommand(() =>
+            {
+                
+            });
 
-        public void updateUsername (string Username)
-        {
-            username = Username;
-        }
+            getUsername = new RelayCommand(() =>
+            {
 
+            });
+
+            getAllFilms = new RelayCommand(() =>
+            {
+
+            });
+        }
     }
 }
