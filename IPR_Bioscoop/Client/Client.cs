@@ -1,7 +1,11 @@
-﻿using System;
+﻿using JsonCommands;
+using Server;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace Client
@@ -15,6 +19,8 @@ namespace Client
         private static string totalBuffer;
         private static int messageLength;
         private static string username;
+
+        private static List<Film> films;
 
         static void Main(string[] args)
         {
@@ -35,6 +41,10 @@ namespace Client
             stream = client.GetStream();
             stream.BeginRead(buffer, 0, buffer.Length, new AsyncCallback(OnRead), null);
             write(JsonCommands.Commands.Login(username));
+
+
+            //TESTING
+            GetMovies();
         }
 
         private static void OnRead(IAsyncResult ar)
@@ -82,13 +92,56 @@ namespace Client
         {
             var writer = new BinaryWriter(stream);
             writer.Write(BitConverter.GetBytes(Encoding.ASCII.GetByteCount(packet))); //Make length packet
+            System.Threading.Thread.Sleep(50);
             writer.Write(Encoding.ASCII.GetBytes(packet));
         }
 
         private static void handleData(string packetData)
         {
-            
+            string id = "";
+            JsonElement jsonCommand = JsonDocument.Parse(packetData).RootElement;   //Converts packetData back into a JSON string
+            id = jsonCommand.GetProperty("id").GetString().Substring(0, jsonCommand.GetProperty("id").GetString().IndexOf("/"));
 
+            switch (id)
+            {
+                case "movies":
+                    MoviesCommandHandling(jsonCommand);
+                    break;
+                default:
+                    Console.WriteLine("Bad command");
+                    break;
+            }
+
+        }
+
+        private static void MoviesCommandHandling(JsonElement command)
+        {
+            string id = command.GetProperty("id").GetString().Substring(command.GetProperty("id").GetString().IndexOf("/") + 1);
+
+            switch (id)
+            {
+                case "getResponse":
+                    for(int i = 0; i < command.GetProperty("data").GetProperty("movies").GetArrayLength(); i++)
+                    {
+                        Film film = new Film("", 0, "", 0);     //Initialize with empty values for readability/space
+                        film.Title = command.GetProperty("data").GetProperty("movies")[i].GetProperty("Title").GetString();
+                        film.Date = command.GetProperty("data").GetProperty("movies")[i].GetProperty("Date").GetDateTime();
+                        film.Length = command.GetProperty("data").GetProperty("movies")[i].GetProperty("Length").GetInt32();
+                        film.Description = command.GetProperty("data").GetProperty("movies")[i].GetProperty("Description").GetString();
+                        film.review = command.GetProperty("data").GetProperty("movies")[i].GetProperty("review").GetInt32();
+                        film.TicketsLeft = command.GetProperty("data").GetProperty("movies")[i].GetProperty("TicketsLeft").GetInt32(); ;
+                        films.Add(film);
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        public static void GetMovies()
+        {
+            write(Commands.GetMovies());
         }
     }
 }
