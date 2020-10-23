@@ -33,7 +33,7 @@ namespace Server
             string id = "";
             JsonElement jsonCommand = JsonDocument.Parse(packetData).RootElement;   //Converts packetData back into a JSON string
             id = jsonCommand.GetProperty("id").GetString().Substring(0, jsonCommand.GetProperty("id").GetString().IndexOf("/"));
-
+        
             switch (id)
             {
                 case "login":
@@ -104,11 +104,11 @@ namespace Server
         {
             username = command.GetProperty("data").GetProperty("username").GetString();
         }
-
+        
         internal void MoviesCommandHandling(JsonElement command)
         {
             string id = command.GetProperty("id").GetString().Substring(command.GetProperty("id").GetString().IndexOf("/") + 1);    //Only gets the second part of the id
-
+        
             switch (id)
             {
                 case "get":     //Retrieve the list of movies

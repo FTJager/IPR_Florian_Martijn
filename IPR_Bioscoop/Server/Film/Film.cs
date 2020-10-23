@@ -17,10 +17,10 @@ namespace Server
         public Film(string Title, int Length, string Description, int Tickets)
         {
             this.Title = Title;
-            //this.Date = date;
+            this.Date = new List<DateTime>();
             this.Length = Length;
             this.Description = Description;
-            //this.review = review;
+            this.review = 4;
             this.TicketsLeft = Tickets;
         }
 

@@ -15,8 +15,10 @@ namespace Server
         {
             Console.WriteLine("Server started");
             Console.WriteLine("Loading movies...");
-            films = MakeFilmList();
+            //films = MakeFilmList();
+            films = StreamReadWrite.Read();
             Console.WriteLine("Movies loaded");
+            Console.WriteLine("Movie: {0}", films[0].Title);
 
             listener = new TcpListener(IPAddress.Any, 14653);
             listener.Start();
@@ -39,7 +41,7 @@ namespace Server
             films.Add(new Film("Tester", 120, "Fuckin top tier movie right there", 100));
             films.Add(new Film("Tester2", 80, "Shit movie but at least it short lmao", 300));
             
-            //StreamReadWrite.Write(films);
+            StreamReadWrite.Write(films);
             //films = StreamReadWrite.Read();
 
             Console.WriteLine("movies saved");
