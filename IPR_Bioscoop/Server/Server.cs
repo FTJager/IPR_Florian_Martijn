@@ -10,7 +10,11 @@ namespace Server
         private static TcpListener listener;
         private static List<ClientHandling> clients = new List<ClientHandling>();       //List of connected clients
         private static List<Film> films;
-        //private static StreamReadWrite streamReadWrite = new StreamReadWrite();
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             Console.WriteLine("Server started");

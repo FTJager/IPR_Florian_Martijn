@@ -22,8 +22,9 @@ namespace Client
 
         //private static List<Film> films;
 
-        public bool requestDone = false;
+        public bool requestDone { get; set; }
         public List<Film> films { get; set; }
+        public bool orderSuccess = false;
 
         static void Main(string[] args)
         {
@@ -41,6 +42,7 @@ namespace Client
         {
             client = new TcpClient();
             client.BeginConnect("localhost", 14653, new AsyncCallback(OnConnect), null);
+            requestDone = false;
 
             Console.ReadLine();
         }
@@ -141,15 +143,18 @@ namespace Client
                         film.TicketsLeft = command.GetProperty("data").GetProperty("movies")[i].GetProperty("TicketsLeft").GetInt32(); ;
                         films.Add(film);
                     }
+                    requestDone = true;
                     break;
                 case "orderResponse":
                     if (command.GetProperty("data").GetProperty("status").GetString() == "success")
                     {
-                        //Movie successfully ordered
+                        orderSuccess = true;
+                        requestDone = true;
                     }
                     else
                     {
-                        //Movie not successfully ordered (either movie doesn't exist or there were not enough tickets)
+                        orderSuccess = false;
+                        requestDone = true;
                     }
                     break;
                 default:
@@ -166,6 +171,11 @@ namespace Client
         public void Login(string userName)
         {
             write(Commands.Login(userName));
+        }
+
+        public void orderTickets(string title, int amount)
+        {
+            write(Commands.OrderMovie(title, amount));
         }
     }
 }
