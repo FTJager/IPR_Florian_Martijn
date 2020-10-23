@@ -33,6 +33,15 @@
                     Command="{Binding searchTitle}"
                     />
 
+            <TextBox Text="{Binding amountTickets}"
+                     Width="50"
+                     />
+
+            <Button Content="Order Ticket"
+                    Command="{Binding orderTicket}"
+                    Width="100"
+                    />
+
             <TextBox x:Name="usernameBox" 
                      Text="{Binding username}" 
                      TextWrapping="Wrap" 
@@ -42,11 +51,6 @@
                     Content="Login"
                     Command="{Binding getUsername}"
                     Width="50"
-                    />
-
-            <Button Content="Order Ticket"
-                    Command="{Binding orderTicket}"
-                    Width="100"
                     />
 
         </StackPanel>

@@ -17,6 +17,13 @@ namespace GUI.ViewModel
 
         private List<Film> MainMovieList { get; set; }
 
+        private int _amountTickets;
+        public int amountTickets
+        {
+            get => _amountTickets;
+            set => SetProperty(ref _amountTickets, value);
+        }
+
         private string _username;
         public string username
         {
@@ -51,6 +58,7 @@ namespace GUI.ViewModel
             _filmTitle = "Search for Title";
             _username = "username";
             _date = DateTime.Today;
+            _amountTickets = 0;
 
             // When te Search title button is pressed it searches for the title in the list of films and returns it
             searchTitle = new RelayCommand(() =>
@@ -93,7 +101,14 @@ namespace GUI.ViewModel
             //When the button is pressed it orders a new ticket
             orderTickets = new RelayCommand(() =>
            {
-               
+               client.orderTickets(filmTitle, amountTickets);
+               while (!client.requestDone)
+               {
+
+               }
+               List<Film> movies = client.films;
+
+               MainMovieList = movies;
            });
         }
     }
