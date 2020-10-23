@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using GUI.Utils;
+using Server;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +20,8 @@ namespace GUI.ViewModel
             get => _username;
             set => SetProperty(ref _username, value);
         }
+
+        private Client.Client client = new Client.Client();
 
         private DateTime _date;
         public DateTime date
@@ -47,17 +50,37 @@ namespace GUI.ViewModel
 
             searchTitle = new RelayCommand(() =>
             {
-                
+                client.GetMovies();
+                while (!client.requestDone)
+                {
+
+                }
+                List<Film> movies = client.films;
+
+                List<Film> moviesWithName = new List<Film>();
+                foreach(Film film in client.films)
+                {
+                    if (film.Title == filmTitle) moviesWithName.Add(film);
+                }
+
+                //MainMoviesList = MoviesWithName
             });
 
             getUsername = new RelayCommand(() =>
             {
-
+                client.Login(username);
             });
 
             getAllFilms = new RelayCommand(() =>
             {
+                client.GetMovies();
+                while (!client.requestDone)
+                {
 
+                }
+                List<Film> movies = client.films;
+
+                //MainMoviesList = movies
             });
         }
     }

@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace Client
 {
-    class Client
+    public class Client
     {
 
         private static TcpClient client;
@@ -20,37 +20,40 @@ namespace Client
         private static int messageLength;
         private static string username;
 
-        private static List<Film> films;
-        private static GUI.App app;
+        //private static List<Film> films;
+
+        public bool requestDone = false;
+        public List<Film> films { get; set; }
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello Client");
-            Console.WriteLine("What is your username");
-            username = Console.ReadLine();
-            app = new GUI.App();
-            app.Run();
+           // Console.WriteLine("Hello Client");
+           // Console.WriteLine("What is your username");
+           // username = Console.ReadLine();
+           //
+           // client = new TcpClient();
+           // client.BeginConnect("localhost", 14653, new AsyncCallback(OnConnect), null);
+           //
+           // Console.ReadLine();
+        }
 
+        public Client()
+        {
             client = new TcpClient();
             client.BeginConnect("localhost", 14653, new AsyncCallback(OnConnect), null);
 
             Console.ReadLine();
         }
 
-        private static void OnConnect(IAsyncResult ar)
+        private void OnConnect(IAsyncResult ar)
         {
             client.EndConnect(ar);
             Console.WriteLine("Verbonden");
             stream = client.GetStream();
             stream.BeginRead(buffer, 0, buffer.Length, new AsyncCallback(OnRead), null);
-            write(JsonCommands.Commands.Login(username));
-
-
-            //TESTING
-            GetMovies();
         }
 
-        private static void OnRead(IAsyncResult ar)
+        private void OnRead(IAsyncResult ar)
         {
             string messageData = "";
             Boolean messageReady = false;
@@ -99,7 +102,7 @@ namespace Client
             writer.Write(Encoding.ASCII.GetBytes(packet));
         }
 
-        private static void handleData(string packetData)
+        private void handleData(string packetData)
         {
             string id = "";
             JsonElement jsonCommand = JsonDocument.Parse(packetData).RootElement;   //Converts packetData back into a JSON string
@@ -117,7 +120,7 @@ namespace Client
 
         }
 
-        private static void MoviesCommandHandling(JsonElement command)
+        private void MoviesCommandHandling(JsonElement command)
         {
             string id = command.GetProperty("id").GetString().Substring(command.GetProperty("id").GetString().IndexOf("/") + 1);
 
@@ -155,9 +158,14 @@ namespace Client
 
         }
 
-        public static void GetMovies()
+        public void GetMovies()
         {
             write(Commands.GetMovies());
+        }
+
+        public void Login(string userName)
+        {
+            write(Commands.Login(userName));
         }
     }
 }
