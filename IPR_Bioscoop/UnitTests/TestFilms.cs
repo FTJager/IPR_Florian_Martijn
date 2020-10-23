@@ -7,10 +7,10 @@ namespace UnitTests
     public class TestFilms
     {
         [TestMethod]
-        public void AddFilms()
+        public void testFilm()
         {
-            
-            //Assert.ThrowsException<ArgumentException>(new Server.Film("hallo", -2, "leuke film", 10));
+            Assert.IsNotNull(new Server.Film("title", 10, "desc", 20));
+            Assert.IsNull(new Server.Film());
         }
     }
 }
