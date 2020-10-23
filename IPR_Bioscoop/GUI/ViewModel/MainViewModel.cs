@@ -14,6 +14,8 @@ namespace GUI.ViewModel
     class MainViewModel : ViewModelBase
     {
 
+        private List<Film> MainMovieList { get; set; }
+
         private string _username;
         public string username
         {
@@ -63,7 +65,7 @@ namespace GUI.ViewModel
                     if (film.Title == filmTitle) moviesWithName.Add(film);
                 }
 
-                //MainMoviesList = MoviesWithName
+                MainMovieList = moviesWithName;
             });
 
             getUsername = new RelayCommand(() =>
@@ -80,7 +82,7 @@ namespace GUI.ViewModel
                 }
                 List<Film> movies = client.films;
 
-                //MainMoviesList = movies
+                MainMovieList = movies;
             });
         }
     }
