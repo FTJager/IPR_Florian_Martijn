@@ -28,6 +28,10 @@ namespace Server
             stream.BeginRead(buffer, 0, buffer.Length, OnRead, null);
         }
 
+        /// <summary>
+        /// Determines the type of command and sends the message to the appropriate handler
+        /// </summary>
+        /// <param name="packetData">Incoming message</param>
         private void DataHandling(string packetData)
         {
             string id = "";
@@ -48,6 +52,10 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Method that gets called when new data comes in. Checks the length and sends it to datahandler
+        /// </summary>
+        /// <param name="ar">Incoming message</param>
         private void OnRead(IAsyncResult ar)
         {
             string messageData = "";
@@ -91,6 +99,10 @@ namespace Server
             stream.BeginRead(buffer, 0, buffer.Length, OnRead, null);
         }
 
+        /// <summary>
+        /// Writes a datapacket to the client
+        /// </summary>
+        /// <param name="packet">Data to send to the client</param>
         internal void Write(string packet)
         {
             var writer = new BinaryWriter(stream);
@@ -100,11 +112,13 @@ namespace Server
 
         //COMMAND HANDLING
 
+        //Handles login commands
         internal void LoginCommandHandling(JsonElement command)
         {
             username = command.GetProperty("data").GetProperty("username").GetString();
         }
         
+        //Handles movie commands
         internal void MoviesCommandHandling(JsonElement command)
         {
             string id = command.GetProperty("id").GetString().Substring(command.GetProperty("id").GetString().IndexOf("/") + 1);    //Only gets the second part of the id
