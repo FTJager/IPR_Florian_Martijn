@@ -23,6 +23,5 @@ namespace Server
             this.review = 4;
             this.TicketsLeft = Tickets;
         }
-
     }
 }
