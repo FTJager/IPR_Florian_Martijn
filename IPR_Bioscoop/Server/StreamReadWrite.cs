@@ -13,6 +13,10 @@ namespace Server
 
         }
 
+        /// <summary>
+        /// Writes a list of movies to a file
+        /// </summary>
+        /// <param name="films">List of movies to be saved</param>
         public static void Write(List<Film> films)
         {
             using(Stream stream = File.Open(fileName, FileMode.Create))
@@ -23,6 +27,10 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Reads a list of movies from a file
+        /// </summary>
+        /// <returns></returns>
         public static List<Film> Read()
         {
             List<Film> filmList = new List<Film>();
@@ -36,6 +44,9 @@ namespace Server
             return filmList;
         }
 
+        /// <summary>
+        /// Empties the file
+        /// </summary>
         public static void ClearFile()
         {
             using(Stream stream = File.Open(fileName, FileMode.Create))

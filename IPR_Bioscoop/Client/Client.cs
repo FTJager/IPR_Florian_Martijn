@@ -129,11 +129,12 @@ namespace Client
             switch (id)
             {
                 case "getResponse":
+                    List<Film> newFilms = new List<Film>();
                     for(int i = 0; i < command.GetProperty("data").GetProperty("movies").GetArrayLength(); i++)
                     {
                         Film film = new Film("", 0, "", 0);     //Initialize with empty values for readability/space
                         film.Title = command.GetProperty("data").GetProperty("movies")[i].GetProperty("Title").GetString();
-                        for(int i2 = 0; i2 < command.GetProperty("data").GetProperty("movies")[i].GetProperty("Date").GetArrayLength(); i++)
+                        for(int i2 = 0; i2 < command.GetProperty("data").GetProperty("movies")[i].GetProperty("Date").GetArrayLength() - 1; i++)
                         {
                             film.Date.Add(command.GetProperty("data").GetProperty("movies")[i].GetProperty("Date")[i2].GetDateTime());
                         }
@@ -141,8 +142,9 @@ namespace Client
                         film.Description = command.GetProperty("data").GetProperty("movies")[i].GetProperty("Description").GetString();
                         film.review = command.GetProperty("data").GetProperty("movies")[i].GetProperty("review").GetInt32();
                         film.TicketsLeft = command.GetProperty("data").GetProperty("movies")[i].GetProperty("TicketsLeft").GetInt32(); ;
-                        films.Add(film);
+                        newFilms.Add(film);
                     }
+                    films = newFilms;
                     requestDone = true;
                     break;
                 case "orderResponse":

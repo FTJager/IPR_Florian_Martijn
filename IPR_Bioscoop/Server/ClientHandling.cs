@@ -138,7 +138,8 @@ namespace Server
                         }
                     }
                     Write(Commands.OrderResponse(success));
-                    Write(Commands.GetMoviesResponse(films));
+                    Server.Broadcast(Commands.GetMoviesResponse(films));
+                    //Write(Commands.GetMoviesResponse(films));
                     break;
                 default:
                     Console.WriteLine("invalid movie command");
