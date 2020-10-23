@@ -59,7 +59,7 @@
         <ListBox Grid.Row="1" ItemsSource="{Binding MainMovieList}" SelectedItem="{Binding film}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding TicketsLeft}" />
+                    <TextBlock Text="{Binding Title}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
