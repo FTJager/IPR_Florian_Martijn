@@ -10,7 +10,7 @@ namespace UnitTests
         public void testFilm()
         {
             Assert.IsNotNull(new Server.Film("title", 10, "desc", 20));
-            Assert.IsNull(new Server.Film());
+            //Assert.IsNull(new Server.Film());
         }
     }
 }

@@ -42,7 +42,11 @@
                     Content="Login"
                     Command="{Binding getUsername}"
                     Width="50"
-                    
+                    />
+
+            <Button Content="Order Ticket"
+                    Command="{Binding orderTicket}"
+                    Width="100"
                     />
 
         </StackPanel>

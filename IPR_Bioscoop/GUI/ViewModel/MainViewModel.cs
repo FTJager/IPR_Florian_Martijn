@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using Client;
+using GalaSoft.MvvmLight.Command;
 using GUI.Utils;
 using Server;
 using System;
@@ -43,6 +44,7 @@ namespace GUI.ViewModel
         public ICommand searchTitle { get; set; }
         public ICommand getUsername { get; set; }
         public ICommand getAllFilms { get; set; }
+        public ICommand orderTickets { get; set; }
 
         public MainViewModel()
         {
@@ -50,6 +52,7 @@ namespace GUI.ViewModel
             _username = "username";
             _date = DateTime.Today;
 
+            // When te Search title button is pressed it searches for the title in the list of films and returns it
             searchTitle = new RelayCommand(() =>
             {
                 client.GetMovies();
@@ -68,11 +71,13 @@ namespace GUI.ViewModel
                 MainMovieList = moviesWithName;
             });
 
+            //When the login button is pressed the username is sent to the server to connect
             getUsername = new RelayCommand(() =>
             {
                 client.Login(username);
             });
 
+            //When the get films button is pressed it returns a list of all the films
             getAllFilms = new RelayCommand(() =>
             {
                 client.GetMovies();
@@ -84,6 +89,12 @@ namespace GUI.ViewModel
 
                 MainMovieList = movies;
             });
+
+            //When the button is pressed it orders a new ticket
+            orderTickets = new RelayCommand(() =>
+           {
+               
+           });
         }
     }
 }
