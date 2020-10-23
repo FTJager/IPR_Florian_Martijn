@@ -41,6 +41,23 @@ namespace JsonCommands
 			return jsonMovies;
         }
 
+		public static string OrderMovie(string title, int amount)
+        {
+			var data = new
+			{
+				title = title,
+				amount = amount
+			};
+
+			var order = new
+			{
+				id = "movies/order",
+				data = data
+			};
+			var jsonOrder = JsonSerializer.Serialize(order);
+			return jsonOrder;
+		}
+
         //RESPONSES
 		public static string GetMoviesResponse(List<Film> films)
         {
@@ -56,7 +73,34 @@ namespace JsonCommands
 			};
 			var jsonMovies = JsonSerializer.Serialize(movies);
 			return jsonMovies;
-
         }
+
+		public static string OrderResponse(bool success)
+        {
+			Object data;
+
+            if (success)
+            {
+				 data = new
+				{
+					status = "success"
+				};
+            }
+            else
+            {
+				 data = new
+				{
+					status = "error"
+				};
+			}
+
+			var order = new
+			{
+				id = "movies/orderResponse",
+				data = data
+			};
+			var jsonOrder = JsonSerializer.Serialize(order);
+			return jsonOrder;
+		}
     }
 }

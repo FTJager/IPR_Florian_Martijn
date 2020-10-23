@@ -68,5 +68,11 @@ namespace Server
             clients.Remove(client);
             Console.WriteLine($"Client {client.username} has been disconnected");
         }
+
+        public static void updateFilms(List<Film> newfilms)
+        {
+            films = newfilms;
+            StreamReadWrite.Write(films);
+        }
     }
 }

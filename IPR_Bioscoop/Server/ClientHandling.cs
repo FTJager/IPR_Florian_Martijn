@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JsonCommands;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
@@ -110,9 +111,33 @@ namespace Server
 
             switch (id)
             {
-                case "get":
+                case "get":     //Retrieve the list of movies
                     Console.WriteLine("movies/get command received");
                     Write(JsonCommands.Commands.GetMoviesResponse(films));
+                    break;
+                case "orderticket":     //Reduce the tickets left for a movie by a certain amount
+                    bool success = false;
+                    foreach(Film film in films)
+                    {
+                        if (film.Title == command.GetProperty("data").GetProperty("title").GetString()) //Check movie availabiliyu
+                        {
+                            if(command.GetProperty("data").GetProperty("amount").GetInt32() >= film.TicketsLeft)    //Check amount of tickets left
+                            {
+                                film.TicketsLeft -= command.GetProperty("data").GetProperty("amount").GetInt32();   //Remove tickets
+                                Server.updateFilms(films);
+                                success = true;  
+                            }
+                            else
+                            {
+                                success = false;
+                            }
+                        }
+                        else
+                        {
+                            success = false;
+                        }
+                    }
+                    Write(Commands.OrderResponse(success));
                     break;
                 default:
                     Console.WriteLine("invalid movie command");
