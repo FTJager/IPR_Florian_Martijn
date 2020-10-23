@@ -148,7 +148,6 @@ namespace Client
                     if (command.GetProperty("data").GetProperty("status").GetString() == "success")
                     {
                         orderSuccess = true;
-                        requestDone = true;
                     }
                     else
                     {

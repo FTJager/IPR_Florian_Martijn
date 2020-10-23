@@ -154,7 +154,7 @@ namespace Server
                             success = false;
                         }
                     }
-                    Write(Commands.OrderResponse(success));
+                    //Write(Commands.OrderResponse(success));
                     Server.Broadcast(Commands.GetMoviesResponse(films));
                     //Write(Commands.GetMoviesResponse(films));
                     break;
