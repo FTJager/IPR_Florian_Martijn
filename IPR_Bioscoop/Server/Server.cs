@@ -44,8 +44,8 @@ namespace Server
             List<Film> films = new List<Film>();    //Use FileIO to make this list
             films.Add(new Film("Tester", 120, "Fuckin top tier movie right there", 100));
             films.Add(new Film("Tester2", 80, "Shit movie but at least it short lmao", 300));
-            films[0].Date.Add(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day));
-            films[1].Date.Add(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day));
+            films[0].Date = (new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day));
+            films[1].Date = (new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day));
 
             StreamReadWrite.Write(films);
             //films = StreamReadWrite.Read();

@@ -8,7 +8,7 @@ namespace Server
     public class Film 
     {
         public string Title { get; set; }
-        public List<DateTime> Date { get; set; }
+        public DateTime Date { get; set; }
         public int Length { get; set; }
         public string Description { get; set; }
         public int review { get; set; }
@@ -17,7 +17,7 @@ namespace Server
         public Film(string Title, int Length, string Description, int Tickets)
         {
             this.Title = Title;
-            this.Date = new List<DateTime>();
+            this.Date = new DateTime();
             this.Length = Length;
             this.Description = Description;
             this.review = 4;

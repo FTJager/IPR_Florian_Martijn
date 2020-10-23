@@ -134,10 +134,7 @@ namespace Client
                     {
                         Film film = new Film("", 0, "", 0);     //Initialize with empty values for readability/space
                         film.Title = command.GetProperty("data").GetProperty("movies")[i].GetProperty("Title").GetString();
-                        for(int i2 = 0; i2 < command.GetProperty("data").GetProperty("movies")[i].GetProperty("Date").GetArrayLength() - 1; i++)
-                        {
-                            film.Date.Add(command.GetProperty("data").GetProperty("movies")[i].GetProperty("Date")[i2].GetDateTime());
-                        }
+                        film.Date = (command.GetProperty("data").GetProperty("movies")[i].GetProperty("Date").GetDateTime());
                         film.Length = command.GetProperty("data").GetProperty("movies")[i].GetProperty("Length").GetInt32();
                         film.Description = command.GetProperty("data").GetProperty("movies")[i].GetProperty("Description").GetString();
                         film.review = command.GetProperty("data").GetProperty("movies")[i].GetProperty("review").GetInt32();

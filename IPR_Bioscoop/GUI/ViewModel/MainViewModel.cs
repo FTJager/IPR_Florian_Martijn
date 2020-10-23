@@ -14,8 +14,19 @@ namespace GUI.ViewModel
 {
     class MainViewModel : ViewModelBase
     {
+        private List<Film> _MainMovieList;
+        public List<Film> MainMovieList 
+        {
+            get => _MainMovieList;
+            set => SetProperty(ref _MainMovieList, value);
+        }
 
-        private List<Film> MainMovieList { get; set; }
+        private Film _film;
+        public Film film 
+        {
+            get => _film;
+            set => SetProperty(ref _film, value);
+        }
 
         private int _amountTickets;
         public int amountTickets
@@ -59,6 +70,8 @@ namespace GUI.ViewModel
             _username = "username";
             _date = DateTime.Today;
             _amountTickets = 0;
+            _MainMovieList = new List<Film>();
+            _film = new Film("", 0, "", 0);
 
             // When te Search title button is pressed it searches for the title in the list of films and returns it
             searchTitle = new RelayCommand(() =>
@@ -77,6 +90,7 @@ namespace GUI.ViewModel
                 }
 
                 MainMovieList = moviesWithName;
+                client.requestDone = false;
             });
 
             //When the login button is pressed the username is sent to the server to connect
@@ -96,12 +110,14 @@ namespace GUI.ViewModel
                 List<Film> movies = client.films;
 
                 MainMovieList = movies;
+
+                client.requestDone = false;
             });
 
             //When the button is pressed it orders a new ticket
             orderTickets = new RelayCommand(() =>
            {
-               client.orderTickets(filmTitle, amountTickets);
+               client.orderTickets(film.Title, amountTickets);
                while (!client.requestDone)
                {
 
@@ -109,6 +125,7 @@ namespace GUI.ViewModel
                List<Film> movies = client.films;
 
                MainMovieList = movies;
+               client.requestDone = false;
            });
         }
     }
