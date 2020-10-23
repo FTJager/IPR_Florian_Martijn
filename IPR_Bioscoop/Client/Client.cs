@@ -21,12 +21,15 @@ namespace Client
         private static string username;
 
         private static List<Film> films;
+        private static GUI.App app;
 
         static void Main(string[] args)
         {
             Console.WriteLine("Hello Client");
             Console.WriteLine("What is your username");
             username = Console.ReadLine();
+            app = new GUI.App();
+            app.Run();
 
             client = new TcpClient();
             client.BeginConnect("localhost", 14653, new AsyncCallback(OnConnect), null);
@@ -125,12 +128,25 @@ namespace Client
                     {
                         Film film = new Film("", 0, "", 0);     //Initialize with empty values for readability/space
                         film.Title = command.GetProperty("data").GetProperty("movies")[i].GetProperty("Title").GetString();
-                        film.Date = command.GetProperty("data").GetProperty("movies")[i].GetProperty("Date").GetDateTime();
+                        for(int i2 = 0; i2 < command.GetProperty("data").GetProperty("movies")[i].GetProperty("Date").GetArrayLength(); i++)
+                        {
+                            film.Date.Add(command.GetProperty("data").GetProperty("movies")[i].GetProperty("Date")[i2].GetDateTime());
+                        }
                         film.Length = command.GetProperty("data").GetProperty("movies")[i].GetProperty("Length").GetInt32();
                         film.Description = command.GetProperty("data").GetProperty("movies")[i].GetProperty("Description").GetString();
                         film.review = command.GetProperty("data").GetProperty("movies")[i].GetProperty("review").GetInt32();
                         film.TicketsLeft = command.GetProperty("data").GetProperty("movies")[i].GetProperty("TicketsLeft").GetInt32(); ;
                         films.Add(film);
+                    }
+                    break;
+                case "orderResponse":
+                    if (command.GetProperty("data").GetProperty("status").GetString() == "success")
+                    {
+                        //Movie successfully ordered
+                    }
+                    else
+                    {
+                        //Movie not successfully ordered (either movie doesn't exist or there were not enough tickets)
                     }
                     break;
                 default:

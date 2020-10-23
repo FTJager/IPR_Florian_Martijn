@@ -4,10 +4,11 @@ using System.Text;
 
 namespace Server
 {
-    public class Film
+    [Serializable]
+    public class Film 
     {
         public string Title { get; set; }
-        public DateTime Date { get; set; }
+        public List<DateTime> Date { get; set; }
         public int Length { get; set; }
         public string Description { get; set; }
         public int review { get; set; }

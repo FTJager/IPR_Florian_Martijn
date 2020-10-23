@@ -10,6 +10,7 @@ namespace Server
         private static TcpListener listener;
         private static List<ClientHandling> clients = new List<ClientHandling>();       //List of connected clients
         private static List<Film> films;
+        //private static StreamReadWrite streamReadWrite = new StreamReadWrite();
         static void Main(string[] args)
         {
             Console.WriteLine("Server started");
@@ -37,6 +38,11 @@ namespace Server
             List<Film> films = new List<Film>();    //Use FileIO to make this list
             films.Add(new Film("Tester", 120, "Fuckin top tier movie right there", 100));
             films.Add(new Film("Tester2", 80, "Shit movie but at least it short lmao", 300));
+            
+            //StreamReadWrite.Write(films);
+            //films = StreamReadWrite.Read();
+
+            Console.WriteLine("movies saved");
 
             return films;
         }
@@ -61,6 +67,12 @@ namespace Server
         {
             clients.Remove(client);
             Console.WriteLine($"Client {client.username} has been disconnected");
+        }
+
+        public static void updateFilms(List<Film> newfilms)
+        {
+            films = newfilms;
+            StreamReadWrite.Write(films);
         }
     }
 }
