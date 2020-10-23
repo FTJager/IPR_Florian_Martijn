@@ -14,11 +14,16 @@
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
 
-            <DatePicker x:Name="DatePicker"
+            <DatePicker SelectedDate="{Binding date}"
                         />
 
+            <Button x:Name="getFilmsButton"
+                    Content="GetFilms"
+                    Command="{Binding getAllFilms}"
+                    />
+
             <TextBox x:Name="titleSearchBox" 
-                     Text="Search for Title" 
+                     Text="{Binding filmTitle}"
                      TextWrapping="Wrap"  
                      Width="200"
                      />
@@ -28,20 +33,20 @@
                     Command="{Binding searchTitle}"
                     />
 
-            <Button x:Name="getFilmsButton"
-                    Content="GetFilms"
-                    />
-
-            <TextBox x:Name="usernameBox" Text="Username" TextWrapping="Wrap" Width="100"/>
+            <TextBox x:Name="usernameBox" 
+                     Text="{Binding username}" 
+                     TextWrapping="Wrap" 
+                     Width="100"/>
 
             <Button x:Name="LoginButton" 
                     Content="Login"
+                    Command="{Binding getUsername}"
                     Width="50"
                     
                     />
 
         </StackPanel>
 
-        <Label Grid.Row="1" Content="{Binding filmTitle}" FontSize="200" />
+        <Label Grid.Row="1" Content="{Binding date}" FontSize="200" />
     </Grid>
 </Window>
