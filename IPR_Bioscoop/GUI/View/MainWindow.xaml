@@ -59,7 +59,14 @@
         <ListBox Grid.Row="1" ItemsSource="{Binding MainMovieList}" SelectedItem="{Binding film}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Title}" />
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock Text="{Binding Title}" Margin="10" />
+                        <TextBlock Text="{Binding Date}" Margin="10"/>
+                        <TextBlock Text="{Binding Length}" Margin="10"/>
+                        <TextBlock Text="{Binding Description}" Margin="10"/>
+                        <TextBlock Text="{Binding review}" Margin="10"/>
+                        <TextBlock Text="{Binding TicketsLeft}" Margin="10"/>
+                    </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
