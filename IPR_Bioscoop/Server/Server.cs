@@ -15,7 +15,7 @@ namespace Server
         {
             Console.WriteLine("Server started");
             Console.WriteLine("Loading movies...");
-            films = MakeFilmList();
+            //films = MakeFilmList();
             films = StreamReadWrite.Read();
             Console.WriteLine("Movies loaded");
 

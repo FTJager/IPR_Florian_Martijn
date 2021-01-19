@@ -10,9 +10,12 @@ using System.Text.RegularExpressions;
 
 namespace Client
 {
+    public delegate void OnGetResponse();
+    public delegate void OnOrderResponse();
     public class Client
     {
-
+        public event OnGetResponse getResponseEvent;
+        public event OnOrderResponse orderResponseEvent;
         private static TcpClient client;
         private static NetworkStream stream;
         private static byte[] buffer = new byte[1024];
@@ -64,7 +67,6 @@ namespace Client
                 int receivedBytes = stream.EndRead(ar);
                 if (receivedBytes == 4)
                 {
-                    //Do something with length byte
                     messageLength = BitConverter.ToInt32(buffer, 0);
                     Console.WriteLine("message length by length byte: {0}", messageLength);
                 }
@@ -143,6 +145,7 @@ namespace Client
                     }
                     films = newFilms;
                     requestDone = true;
+                    getResponseEvent.Invoke();
                     break;
                 case "orderResponse":
                     if (command.GetProperty("data").GetProperty("status").GetString() == "success")
@@ -154,6 +157,7 @@ namespace Client
                         orderSuccess = false;
                         requestDone = true;
                     }
+                    orderResponseEvent.Invoke();
                     break;
                 default:
                     break;
