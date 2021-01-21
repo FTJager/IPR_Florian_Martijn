@@ -23,5 +23,30 @@ namespace Server
             this.review = 4;
             this.TicketsLeft = Tickets;
         }
+
+        public string getTitle()
+        {
+            return this.Title;
+        }
+
+        public DateTime getDate()
+        {
+            return this.Date;
+        }
+
+        public int getLength()
+        {
+            return this.Length;
+        }
+
+        public string getDescription ()
+        {
+            return this.Description;
+        }
+
+        public int getTicketsLeft()
+        {
+            return this.TicketsLeft;
+        }
     }
 }
