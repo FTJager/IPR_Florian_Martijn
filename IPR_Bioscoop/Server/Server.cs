@@ -5,11 +5,11 @@ using System.Net.Sockets;
 
 namespace Server
 {
-    class Server
+    public class Server
     {
         private static TcpListener listener;
         private static List<ClientHandling> clients = new List<ClientHandling>();       //List of connected clients
-        private static List<Film> films;
+        public static List<Film> films { get; set; }
         
         static void Main(string[] args)
         {
@@ -39,7 +39,7 @@ namespace Server
         }
 
         //Creates some test movies, only gets called when file has to be remade
-        internal static List<Film> MakeFilmList()
+        public static List<Film> MakeFilmList()
         {
             List<Film> films = new List<Film>();    //Use FileIO to make this list
             films.Add(new Film("Tester", 120, "Fuckin top tier movie right there", 100));

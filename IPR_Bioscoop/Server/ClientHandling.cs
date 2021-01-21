@@ -8,7 +8,7 @@ using System.Text.Json;
 
 namespace Server
 {
-    class ClientHandling
+    public class ClientHandling
     {
         private TcpClient client;
         private NetworkStream stream;

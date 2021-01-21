@@ -108,6 +108,9 @@ namespace Client
 
         private void handleData(string packetData)
         {
+            //MULTITHREADING
+
+            Console.WriteLine(packetData);
             string id = "";
             JsonElement jsonCommand = JsonDocument.Parse(packetData).RootElement;   //Converts packetData back into a JSON string
             id = jsonCommand.GetProperty("id").GetString().Substring(0, jsonCommand.GetProperty("id").GetString().IndexOf("/"));
