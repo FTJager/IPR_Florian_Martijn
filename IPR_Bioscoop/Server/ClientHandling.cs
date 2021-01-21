@@ -5,6 +5,7 @@ using System.IO;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 
 namespace Server
 {
@@ -32,10 +33,11 @@ namespace Server
         /// Determines the type of command and sends the message to the appropriate handler
         /// </summary>
         /// <param name="packetData">Incoming message</param>
-        private void DataHandling(string packetData)
+        private void DataHandling(object packetData)
         {
+            string packetDataString = (string)packetData;
             string id = "";
-            JsonElement jsonCommand = JsonDocument.Parse(packetData).RootElement;   //Converts packetData back into a JSON string
+            JsonElement jsonCommand = JsonDocument.Parse(packetDataString).RootElement;   //Converts packetData back into a JSON string
             id = jsonCommand.GetProperty("id").GetString().Substring(0, jsonCommand.GetProperty("id").GetString().IndexOf("/"));
 
             switch (id)
@@ -93,7 +95,11 @@ namespace Server
                 return;
             }
 
-            if (messageReady) DataHandling(messageData);
+            
+            if (messageReady){
+                Thread t = new Thread(DataHandling);
+                t.Start(messageData);
+            }
 
             Console.WriteLine("Begin reading again");
             stream.BeginRead(buffer, 0, buffer.Length, OnRead, null);

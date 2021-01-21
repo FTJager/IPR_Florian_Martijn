@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace Client
 {
@@ -95,7 +96,12 @@ namespace Client
                 Console.WriteLine(e.Message);
             }
 
-            if (messageReady) handleData(messageData);
+            if (messageReady)
+            {
+                Thread t = new Thread(handleData);
+                t.Start(messageData);
+            }
+
             stream.BeginRead(buffer, 0, buffer.Length, new AsyncCallback(OnRead), null);
 
         }
@@ -110,13 +116,13 @@ namespace Client
         }
 
         // changes the incoming data to a usefull JSON string
-        private void handleData(string packetData)
+        private void handleData(object packetData)
         {
-            //MULTITHREADING
+            string packetDataString = (string)packetData;
 
-            Console.WriteLine(packetData);
+            Console.WriteLine(packetDataString);
             string id = "";
-            JsonElement jsonCommand = JsonDocument.Parse(packetData).RootElement;   //Converts packetData back into a JSON string
+            JsonElement jsonCommand = JsonDocument.Parse(packetDataString).RootElement;   //Converts packetData back into a JSON string
             id = jsonCommand.GetProperty("id").GetString().Substring(0, jsonCommand.GetProperty("id").GetString().IndexOf("/"));
 
             switch (id)
