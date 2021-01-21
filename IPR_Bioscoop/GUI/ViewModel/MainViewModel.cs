@@ -76,21 +76,10 @@ namespace GUI.ViewModel
             // When te Search title button is pressed it searches for the title in the list of films and returns it
             searchTitle = new RelayCommand(() =>
             {
+                ClearGetResponseEvent();
+                client.getResponseEvent += SearchTitleEvent;
                 client.GetMovies();
-                while (!client.requestDone)
-                {
-
-                }
-                List<Film> movies = client.films;
-
-                List<Film> moviesWithName = new List<Film>();
-                foreach(Film film in client.films)
-                {
-                    if (film.Title == filmTitle) moviesWithName.Add(film);
-                }
-
-                MainMovieList = moviesWithName;
-                client.requestDone = false;
+                
             });
 
             //When the login button is pressed the username is sent to the server to connect
@@ -102,31 +91,79 @@ namespace GUI.ViewModel
             //When the get films button is pressed it returns a list of all the films
             getAllFilms = new RelayCommand(() =>
             {
+                client.getResponseEvent += GetAllFilmsEvent;
                 client.GetMovies();
-                while (!client.requestDone)
-                {
-
-                }
-                List<Film> movies = client.films;
-
-                MainMovieList = movies;
-
-                client.requestDone = false;
             });
 
             //When the button is pressed it orders a new ticket
             orderTickets = new RelayCommand(() =>
            {
+               ClearOrderResponseEvent();
+               client.orderResponseEvent += OrderTicketsEvent;
                client.orderTickets(film.Title, amountTickets);
-               while (!client.requestDone)
-               {
-
-               }
-               List<Film> movies = client.films;
-
-               MainMovieList = movies;
-               client.requestDone = false;
            });
         }
+
+        public void ClearGetResponseEvent()
+        {
+            try
+            {
+                client.getResponseEvent -= SearchTitleEvent;
+            }
+            catch
+            {
+            }
+            try
+            {
+                client.getResponseEvent -= GetAllFilmsEvent;
+            }
+            catch
+            {
+            }
+        }
+
+        public void ClearOrderResponseEvent()
+        {
+            try
+            {
+                client.orderResponseEvent -= OrderTicketsEvent;
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void SearchTitleEvent()
+        {
+            List<Film> movies = client.films;
+
+            List<Film> moviesWithName = new List<Film>();
+            foreach (Film film in client.films)
+            {
+                if (film.Title == filmTitle) moviesWithName.Add(film);
+            }
+
+            MainMovieList = moviesWithName;
+            client.requestDone = false;
+        }
+
+        private void GetAllFilmsEvent()
+        {
+            List<Film> movies = client.films;
+
+            MainMovieList = movies;
+
+            client.requestDone = false;
+        }
+
+        private void OrderTicketsEvent()
+        {
+            List<Film> movies = client.films;
+
+            MainMovieList = movies;
+            client.requestDone = false;
+        }
+
     }
 }
