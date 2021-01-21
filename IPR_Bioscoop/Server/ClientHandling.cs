@@ -25,6 +25,7 @@ namespace Server
             this.client = client;
             stream = client.GetStream();
             this.films = films;
+            username = "NOT_LOGGED_IN";
 
             stream.BeginRead(buffer, 0, buffer.Length, OnRead, null);
         }
@@ -46,7 +47,7 @@ namespace Server
                     LoginCommandHandling(jsonCommand);
                     break;
                 case "movies":
-                    MoviesCommandHandling(jsonCommand);
+                    if(username != "NOT_LOGGED_IN") MoviesCommandHandling(jsonCommand);
                     break;
                 default:
                     Console.WriteLine("Bad command");
