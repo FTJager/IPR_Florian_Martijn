@@ -110,12 +110,6 @@ namespace GUI.ViewModel
             try
             {
                 client.getResponseEvent -= SearchTitleEvent;
-            }
-            catch
-            {
-            }
-            try
-            {
                 client.getResponseEvent -= GetAllFilmsEvent;
             }
             catch
