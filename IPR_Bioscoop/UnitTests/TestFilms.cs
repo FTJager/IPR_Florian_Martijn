@@ -6,7 +6,7 @@ namespace UnitTests
     [TestClass]
     public class TestFilms
     {
-        [TestMethod]
+        [TestMethod()]
         public void testFilm()
         {
             Assert.IsNotNull(new Server.Film("title", 10, "desc", 20));
