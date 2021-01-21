@@ -50,6 +50,7 @@ namespace Client
             Console.ReadLine();
         }
 
+        // starts listening if data is incoming after starting the client
         private void OnConnect(IAsyncResult ar)
         {
             client.EndConnect(ar);
@@ -58,6 +59,7 @@ namespace Client
             stream.BeginRead(buffer, 0, buffer.Length, new AsyncCallback(OnRead), null);
         }
 
+        // Reads the incoming data
         private void OnRead(IAsyncResult ar)
         {
             string messageData = "";
@@ -98,6 +100,7 @@ namespace Client
 
         }
 
+        // sends data to the server
         private static void write(string packet)
         {
             var writer = new BinaryWriter(stream);
@@ -106,6 +109,7 @@ namespace Client
             writer.Write(Encoding.ASCII.GetBytes(packet));
         }
 
+        // changes the incoming data to a usefull JSON string
         private void handleData(string packetData)
         {
             //MULTITHREADING
@@ -127,6 +131,7 @@ namespace Client
 
         }
 
+        // gets the movie data from the JSON string
         private void MoviesCommandHandling(JsonElement command)
         {
             string id = command.GetProperty("id").GetString().Substring(command.GetProperty("id").GetString().IndexOf("/") + 1);
@@ -168,16 +173,19 @@ namespace Client
 
         }
 
+        // command to the server
         public void GetMovies()
         {
             write(Commands.GetMovies());
         }
 
+        // command to the server
         public void Login(string userName)
         {
             write(Commands.Login(userName));
         }
 
+        // command to the server
         public void orderTickets(string title, int amount)
         {
             write(Commands.OrderMovie(title, amount));
