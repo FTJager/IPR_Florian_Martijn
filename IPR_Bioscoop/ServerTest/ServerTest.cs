@@ -10,7 +10,7 @@ using System.Text.Json;
 
 namespace UnitTests
 {
-    [TestClass]
+    [TestClass()]
     class ServerTest
     {
         public ClientHandling clientHandling;
@@ -26,7 +26,7 @@ namespace UnitTests
             clientHandling = new ClientHandling(new TcpClient(), testFilms);
         }
 
-        [TestMethod]
+        [TestMethod()]
         public void testUpdateFilms()
         {
             testSetup();
