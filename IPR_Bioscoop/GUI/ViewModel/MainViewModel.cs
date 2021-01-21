@@ -42,7 +42,7 @@ namespace GUI.ViewModel
             set => SetProperty(ref _username, value);
         }
 
-        private Client.Client client = new Client.Client();
+        private Client.Client client;
 
         private DateTime _date;
         public DateTime date
@@ -64,8 +64,9 @@ namespace GUI.ViewModel
         public ICommand getAllFilms { get; set; }
         public ICommand orderTickets { get; set; }
 
-        public MainViewModel()
-        {
+        public MainViewModel() {
+
+            client = new Client.Client();
             _filmTitle = "Search for Title";
             _username = "username";
             _date = DateTime.Today;
